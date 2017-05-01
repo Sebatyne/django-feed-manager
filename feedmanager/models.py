@@ -17,6 +17,8 @@ class Feed(models.Model):
 
 
 class Item(models.Model):
+    PROPERTY_LIST = ['title', 'link', 'description', 'pubDate']
+
     title = models.CharField(max_length=100)
     link = models.URLField()
     description = models.TextField()
