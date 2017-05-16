@@ -48,7 +48,7 @@ class FeedView(SyndicationFeed):
 @csrf_exempt
 def createAccount(request):
     if 'username' not in request.POST \
-            or 'password' not in request.POST:
+            and 'password' not in request.POST:
         return HttpResponse(status=500)
 
     user = User.objects.create_user(request.POST['username'], password=request.POST['password'], is_active=False)
