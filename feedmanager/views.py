@@ -59,7 +59,7 @@ def createAccount(request):
         link = "",
         description = "",
         language = "en",
-        maximum_length = 50,
+        maximum_length = int(request.POST.get('maximum_length', 50)),
         user=user,
     )
     feed.save()

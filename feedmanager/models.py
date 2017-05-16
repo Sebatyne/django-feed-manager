@@ -12,9 +12,17 @@ class Feed(models.Model):
     def __str__(self):
         return self.title
 
+    def deleteOldItems(self):
+        item_list = Item.objects \
+                        .filter(feed=self) \
+                        .order_by('pubDate')
+        for i in range(len(item_list) - self.maximum_length):
+            item_list[i].delete()
+
     def addItem(self, **kw):
         Item.objects.create(feed=self, **kw)
-
+        if Item.objects.filter(feed=self).count() > self.maximum_length:
+            self.deleteOldItems()
 
 class Item(models.Model):
     PROPERTY_LIST = ['title', 'link', 'description', 'pubDate']
